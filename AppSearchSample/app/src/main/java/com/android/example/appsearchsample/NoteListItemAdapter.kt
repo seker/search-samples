@@ -53,8 +53,8 @@ class NoteListItemAdapter(private val onDelete: (SearchResult?) -> Unit) :
   inner class NoteViewHolder(
     view: View,
   ) : RecyclerView.ViewHolder(view) {
-    val noteTextView: TextView = view.findViewById(R.id.note_text)
-    val noteDeleteButtonView: Button = view.findViewById(R.id.note_delete_button)
+    private val noteTextView: TextView = view.findViewById(R.id.note_text)
+    private val noteDeleteButtonView: Button = view.findViewById(R.id.note_delete_button)
 
     fun bind(searchResult: SearchResult, onDelete: (SearchResult?) -> Unit) {
       val note = searchResult.genericDocument.toDocumentClass(Note::class.java)
@@ -75,7 +75,7 @@ class NoteListItemAdapter(private val onDelete: (SearchResult?) -> Unit) :
   }
 
   companion object {
-    private val TEXT_PROPERTY_PATH = "text"
+    private const val TEXT_PROPERTY_PATH = "text"
 
     private val NOTES_COMPARATOR = object : DiffUtil.ItemCallback<SearchResult>() {
       override fun areItemsTheSame(oldItem: SearchResult, newItem: SearchResult): Boolean {

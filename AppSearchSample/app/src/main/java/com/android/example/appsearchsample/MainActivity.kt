@@ -72,25 +72,24 @@ class MainActivity : AppCompatActivity() {
     initNoteListView()
 
     noteViewModel.queryNotes().observe(
-      this,
-      {
-        notesAdapter.submitList(it)
-        progressSpinner.visibility = View.GONE
-        if (it.isEmpty()) {
-          notesList.visibility = View.GONE
-          noNotesMessage.visibility = View.VISIBLE
-        } else {
-          notesList.visibility = View.VISIBLE
-          noNotesMessage.visibility = View.GONE
-        }
+      this
+    ) {
+      notesAdapter.submitList(it)
+      progressSpinner.visibility = View.GONE
+      if (it.isEmpty()) {
+        notesList.visibility = View.GONE
+        noNotesMessage.visibility = View.VISIBLE
+      } else {
+        notesList.visibility = View.VISIBLE
+        noNotesMessage.visibility = View.GONE
       }
-    )
+    }
 
-    noteViewModel.errorMessageLiveData.observe(this, {
+    noteViewModel.errorMessageLiveData.observe(this) {
       it?.let {
         Toast.makeText(applicationContext, it, LENGTH_LONG).show()
       }
-    })
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
